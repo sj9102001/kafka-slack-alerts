@@ -28,7 +28,7 @@
             const replicateFailure = async () => {
                 const res = await fetch('/error/', {method: 'POST'});
                 const data = await res.json();
-                document.getElementById('result').innerText = data.message;
+                document.getElementById('result').innerText = data.detail;
             }
         </script>
     </body>

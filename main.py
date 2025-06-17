@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
+from core.exceptions import AppException
+from core.handlers import app_error_handler
 
 app = FastAPI()
-
+app.add_exception_handler(AppException, app_error_handler)
 templates = Jinja2Templates(directory="templates")
 
 
@@ -16,4 +18,4 @@ async def success(request: Request):
 
 @app.post("/error/")
 async def failure(request: Request):
-    return {"message": "Error"}
+    raise AppException("Error Replicated", 500)

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Two-Button Demo</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 4rem; }
+            button { padding: 0.6rem 1.2rem; margin-right: 1rem; font-size: 1rem; }
+            #result { margin-top: 2rem; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <h1>Pick an action</h1>
+
+        <button onclick="replicateSuccess()">Replicate Success</button>
+        <button onclick="replicateFailure()">Replicate Error</button>
+
+        <div id="result"></div>
+
+        <script>
+            const replicateSuccess = async () => {
+                const res = await fetch('/success/', {method: 'POST'});
+                const data = await res.json();
+                console.log(data);
+                document.getElementById('result').innerText = data.message;
+            }
+
+            const replicateFailure = async () => {
+                const res = await fetch('/error/', {method: 'POST'});
+                const data = await res.json();
+                document.getElementById('result').innerText = data.message;
+            }
+        </script>
+    </body>
+    </html>

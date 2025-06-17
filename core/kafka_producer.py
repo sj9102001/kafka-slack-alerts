@@ -5,4 +5,10 @@ producer = Producer({
 })
 
 async def send_error_to_kafka(exc, request):
-    print(exc)
+    payload = {
+        "path": request.url.path,
+        "method": request.method,
+        "error": str(exc)
+    }
+    producer.produce("errors", json.dumps(payload).encode())
+    producer.flush()
